@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
+    "host": "ngrok start autobankid-server",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "lint": "npx eslint ."
   },
