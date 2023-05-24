@@ -1,12 +1,13 @@
 import dotenv from "dotenv";
 dotenv.config();
 import open from "open";
-import cors from "cors";
 import express from "express";
 import http from "http";
 
 const app = express();
-app.use(cors());
+
+app.use(express.static("client"));
+
 const server = http.createServer(app);
 
 server.listen(process.env.PORT, () => {
