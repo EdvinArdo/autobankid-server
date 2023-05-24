@@ -14,8 +14,8 @@ server.listen(process.env.PORT, () => {
 });
 
 app.get("/api/autobankid", async (req, res) => {
-  console.log(req.query);
   const { autostarttoken } = req.query;
+  console.log(`Request with autostarttoken: ${autostarttoken}`);
   await open(`bankid:///?autostarttoken=${autostarttoken}&redirect=null`);
   setTimeout(() => open(`autobankidauth://`), 1000);
   res.send();
