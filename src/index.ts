@@ -3,6 +3,7 @@ dotenv.config();
 import open from "open";
 import express from "express";
 import http from "http";
+import robot from "robotjs";
 
 const app = express();
 
@@ -55,7 +56,8 @@ async function openAndSignBankId(autostarttoken: string) {
   await open(`bankid:///?autostarttoken=${autostarttoken}&redirect=null`);
   await sleep(isFirstRequest ? 3000 : 1000);
   isFirstRequest = false;
-  await open(`autobankidauth://`);
+  robot.typeString(process.env.PASSWORD ?? "");
+  robot.keyTap("enter");
   await sleep(1000);
 }
 
