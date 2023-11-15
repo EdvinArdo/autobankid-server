@@ -4,8 +4,15 @@ import open from "open";
 import express from "express";
 import http from "http";
 import robot from "robotjs";
+import cors from "cors";
 
 const app = express();
+
+const corrOptions = {
+  origin: ["http://localhost:5173", "https://bankid-opener.web.app"],
+};
+
+app.use(cors(corrOptions));
 
 const server = http.createServer(app);
 
