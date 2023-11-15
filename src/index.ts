@@ -22,7 +22,7 @@ interface SignRequest {
 
 const requestQueue: SignRequest[] = [];
 
-app.get("/api/autobankid", async (req, res) => {
+app.get("/api/autobankid", (req, res) => {
   const { autostarttoken } = req.query;
   console.log(`Request with autostarttoken: ${autostarttoken}`);
 
@@ -31,7 +31,7 @@ app.get("/api/autobankid", async (req, res) => {
     return;
   }
 
-  await new Promise((resolve) => {
+  new Promise((resolve) => {
     requestQueue.push({ autostarttoken, resolve });
     if (requestQueue.length === 1) {
       handleSignRequest(requestQueue[0]);
