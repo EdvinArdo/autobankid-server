@@ -9,6 +9,8 @@ const app = express();
 
 const server = http.createServer(app);
 
+const SLEEP_TIME = parseInt(process.env.SLEEP ?? "1000");
+
 server.listen(process.env.PORT, () => {
   console.log("Server started");
 });
@@ -18,7 +20,6 @@ interface SignRequest {
   resolve: (value?: unknown) => void;
 }
 
-let isFirstRequest = true;
 const requestQueue: SignRequest[] = [];
 
 app.get("/api/autobankid", async (req, res) => {
@@ -52,11 +53,10 @@ async function handleSignRequest(signRequest: SignRequest) {
 
 async function openAndSignBankId(autostarttoken: string) {
   await open(`bankid:///?autostarttoken=${autostarttoken}&redirect=null`);
-  await sleep(isFirstRequest ? 3000 : 1000);
-  isFirstRequest = false;
+  await sleep(SLEEP_TIME);
   robot.typeString(process.env.PASSWORD ?? "");
   robot.keyTap("enter");
-  await sleep(1000);
+  await sleep(SLEEP_TIME);
 }
 
 function sleep(ms: number) {
