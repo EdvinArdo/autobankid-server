@@ -7,8 +7,6 @@ import robot from "robotjs";
 
 const app = express();
 
-app.use(express.static("client"));
-
 const server = http.createServer(app);
 
 server.listen(process.env.PORT, () => {
